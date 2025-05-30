@@ -1,3 +1,4 @@
 spell/
 *.bak
 lazy-lock.json
+.talismanrc

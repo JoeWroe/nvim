@@ -28,5 +28,6 @@ require("lazy").setup({
   { "L3MON4D3/LuaSnip" },
   { "saadparwaiz1/cmp_luasnip" },
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { "folke/tokyonight.nvim", priority = 1000 },
 })
 
