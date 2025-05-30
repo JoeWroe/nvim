@@ -9,8 +9,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   { "hashivim/vim-terraform" },
   { "godlygeek/tabular" },
-  { "junegunn/fzf", build = function() vim.fn["fzf#install"]() end },
-  { "junegunn/fzf.vim" },
   { "mileszs/ack.vim" },
   { "ryanoasis/vim-devicons" },
   { "preservim/vim-markdown" },
@@ -29,5 +27,10 @@ require("lazy").setup({
   { "saadparwaiz1/cmp_luasnip" },
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "folke/tokyonight.nvim", priority = 1000 },
+  { "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = {
+        "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    },
+  }
 })
 

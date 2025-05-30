@@ -31,10 +31,14 @@ map("i", "OO", "<Esc>O", { noremap = true })
 vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>", opts)
 vim.keymap.set("n", "<leader>b", ":NvimTreeFindFile<CR>", opts)
 
--- FZF
-map("n", "<leader>ff", ":update | FZF<CR>", opts)
-map("n", "<leader>gf", ":update | GFiles?<CR>", opts)
-map("n", "<leader>fh", ":History/<CR>", opts)
+-- Telescope
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
+vim.keymap.set("n", "<leader>gf", "<cmd>Telescope git_files<cr>", opts)
+vim.keymap.set("n", "<leader>fh", "<cmd>Telescope oldfiles<cr>", opts)
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)
+vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", opts)
 
 -- Trouble diagnostics (if using)
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
