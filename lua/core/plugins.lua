@@ -31,6 +31,7 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
-  }
+  },
+  { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 })
 

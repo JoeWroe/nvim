@@ -2,3 +2,4 @@ spell/
 *.bak
 lazy-lock.json
 .talismanrc
+test.py
