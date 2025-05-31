@@ -13,8 +13,6 @@ require("lazy").setup({
   { "ryanoasis/vim-devicons" },
   { "preservim/vim-markdown" },
   { "psliwka/vim-smoothie" },
-  { "tpope/vim-commentary" },
-  { "tpope/vim-surround" },
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "folke/noice.nvim", dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } },
@@ -33,5 +31,7 @@ require("lazy").setup({
     },
   },
   { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
+  { "kylechui/nvim-surround", event = "VeryLazy", config = true },
+  { "numToStr/Comment.nvim", event = "VeryLazy", config = true },
 })
 
