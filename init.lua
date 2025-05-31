@@ -15,4 +15,4 @@ require("core.treesitter")
 require("core.noice")
 require("core.nvimtree")
 require("core.lualine")
-
+require("core.overseer")

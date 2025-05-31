@@ -120,4 +120,14 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
+  -- Overseer (Task runner)
+  {
+    "stevearc/overseer.nvim",
+    cmd = { "OverseerRun", "OverseerToggle" },
+    keys = {
+      { "<leader>or", "<cmd>OverseerRun<cr>", desc = "Run task" },
+      { "<leader>ot", "<cmd>OverseerToggle<cr>", desc = "Toggle task list" },
+    },
+    config = true,
+  },
 })
