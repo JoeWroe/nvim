@@ -33,5 +33,6 @@ require("lazy").setup({
   { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
   { "kylechui/nvim-surround", event = "VeryLazy", config = true },
   { "numToStr/Comment.nvim", event = "VeryLazy", config = true },
+  { "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 })
 
