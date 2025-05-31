@@ -1,38 +1,123 @@
 -- lua/core/plugins.lua
 
+-- Bootstrap lazy.nvim if not installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", lazypath })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Now safe to call require("lazy")
 require("lazy").setup({
-  { "hashivim/vim-terraform" },
-  { "godlygeek/tabular" },
-  { "mileszs/ack.vim" },
-  { "ryanoasis/vim-devicons" },
-  { "preservim/vim-markdown" },
-  { "psliwka/vim-smoothie" },
-  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
-  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
-  { "folke/noice.nvim", dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
-  { "neovim/nvim-lspconfig" },
-  { "hrsh7th/nvim-cmp" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "L3MON4D3/LuaSnip" },
-  { "saadparwaiz1/cmp_luasnip" },
-  { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
-  { "folke/tokyonight.nvim", priority = 1000 },
-  { "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = {
-        "nvim-lua/plenary.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
+  -- Theme
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+  },
+
+  -- LSP Config
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+  },
+
+  -- Autocompletion
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
     },
   },
-  { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
-  { "kylechui/nvim-surround", event = "VeryLazy", config = true },
-  { "numToStr/Comment.nvim", event = "VeryLazy", config = true },
-  { "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-})
 
+  -- LSP formatting, linters, diagnostics
+  {
+    "nvimtools/none-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  -- Treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufReadPre",
+    build = ":TSUpdate",
+  },
+
+  -- Telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    keys = { "<leader>ff", "<leader>gf", "<leader>fh", "<leader>fs" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  -- File explorer
+  {
+    "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+
+  -- Smooth scrolling
+  {
+    "psliwka/vim-smoothie",
+    event = "VeryLazy",
+  },
+
+  -- Statusline
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = true,
+  },
+
+  -- Surround
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    config = true,
+  },
+
+  -- Commenting
+  {
+    "numToStr/Comment.nvim",
+    keys = { "gc", "gcc", "gbc" },
+    config = true,
+  },
+
+  -- Auto pairs
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+  },
+
+  -- UI enhancements
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
+
+  -- Trouble (Diagnostics list)
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+
+})
