@@ -3,3 +3,4 @@ spell/
 lazy-lock.json
 .talismanrc
 test.py
+.DS_Store

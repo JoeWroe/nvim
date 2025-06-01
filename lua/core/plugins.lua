@@ -57,9 +57,6 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     lazy = false,  -- Eager-load to ensure keymaps in keymaps.lua work
-    config = function()
-      require("core.telescope")
-    end,
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
