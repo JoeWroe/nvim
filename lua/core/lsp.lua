@@ -54,4 +54,35 @@ local cmp = require("cmp")
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
+-- Mason setup
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "lua_ls",       -- Lua
+    "pyright",      -- Python
+    "groovyls",    -- Groovy
+    -- Add more as needed
+  },
+  automatic_installation = true,
+})
+
+require("mason-lspconfig").setup({
+  handlers = {
+    function(server_name)
+      require("lspconfig")[server_name].setup({})
+    end,
+  },
+})
+
+require("mason-null-ls").setup({
+  ensure_installed = {
+    "prettier",
+    "stylua",
+    "eslint_d",
+    "black",
+    "npm-groovy-lint",
+    -- Add more as needed
+  },
+  automatic_installation = true,
+})
 

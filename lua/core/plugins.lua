@@ -46,6 +46,31 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
+  -- Mason
+  -- LSP Installer
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate", -- optional
+    config = true,
+  },
+
+  -- Bridge Mason to LSPConfig
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = true,
+  },
+
+  -- Mason support for none-ls (formatters/linters)
+  {
+    "jay-babu/mason-null-ls.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+    config = true,
+  },
+
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
