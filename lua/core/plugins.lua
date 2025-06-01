@@ -137,5 +137,14 @@ require("lazy").setup({
     config = function()
       require("which-key").setup()
     end,
-  }
+  },
+
+  -- Git signs
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
 })

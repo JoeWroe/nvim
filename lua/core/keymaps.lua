@@ -43,3 +43,21 @@ vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", opts)
 -- Trouble diagnostics (if using)
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
 
+-- Git signs
+vim.keymap.set("n", "]c", function()
+  if vim.wo.diff then return "]c" end
+  vim.schedule(function() require("gitsigns").next_hunk() end)
+  return "<Ignore>"
+end, { expr = true, desc = "Next Git hunk" })
+
+vim.keymap.set("n", "[c", function()
+  if vim.wo.diff then return "[c" end
+  vim.schedule(function() require("gitsigns").prev_hunk() end)
+  return "<Ignore>"
+end, { expr = true, desc = "Prev Git hunk" })
+
+vim.keymap.set("n", "<leader>gb", function() require("gitsigns").blame_line() end, { desc = "Git blame line" })
+vim.keymap.set("n", "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
+vim.keymap.set("n", "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
+
+

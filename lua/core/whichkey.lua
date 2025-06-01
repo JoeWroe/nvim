@@ -29,6 +29,9 @@ wk.register({
 
   g = {
     name = "Git",
-    -- Add your git mappings here
+    b = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame line" },
+    p = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview hunk" },
+    r = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset hunk" },
   },
+
 }, { prefix = "<leader>" })
