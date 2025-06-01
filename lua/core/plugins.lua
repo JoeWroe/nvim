@@ -172,4 +172,10 @@ require("lazy").setup({
       require("gitsigns").setup()
     end,
   },
+
+  -- Copilot
+  {
+    "github/copilot.vim",
+    lazy = false  -- Load on startup
+  }
 })
