@@ -38,6 +38,31 @@ overseer.register_template({
   condition = {
     filetype = { "python", "javascript", "sh" },
   },
+
+  name = "Test current file",
+  description = "Test the current file",
+  builder = function()
+    local file = vim.fn.expand("%")
+    local cmd
+    local filetype = vim.bo.filetype
+
+    if filetype == "python" then
+      cmd = { "pytest", file }
+    else
+      vim.notify("Unsupported filetype for testing: " .. filetype, vim.log.levels.WARN)
+      return
+    end
+
+    return {
+      cmd = cmd,
+      name = "Test " .. file,
+      components = {
+        { "display_duration" },
+        { "on_output_quickfix", open = true }, -- open the output automatically
+        { "on_complete_notify" },
+        { "on_exit_set_status" },
+      },
+    }
 })
 
 -- Keybindings
