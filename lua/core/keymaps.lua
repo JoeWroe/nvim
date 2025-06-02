@@ -11,7 +11,7 @@ map("n", "<leader>w", ":w<CR>", opts)
 map("n", "<leader>q", ":q<CR>", opts)
 map("n", "<leader>wq", ":wq<CR>", opts)
 map("n", "<esc>", ":noh<CR><esc>", opts)
-map("n", "<leader>u", ":set cursorline!<CR>", opts)
+map("n", "<leader>ul", ":set cursorline!<CR>", opts)
 map("n", "<<", ":update | bp<CR>", opts)
 map("n", ">>", ":update | bn<CR>", opts)
 map("n", "<leader>ls", ":update | ls<CR>", opts)
@@ -60,4 +60,8 @@ vim.keymap.set("n", "<leader>gb", function() require("gitsigns").blame_line() en
 vim.keymap.set("n", "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
 vim.keymap.set("n", "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
 
-
+-- Copilot
+vim.keymap.set("i", "<C-L>", "<Plug>(copilot-accept-word)", { silent = true, desc = "Accept next word of suggestion" })
+vim.keymap.set("i", "<C-K>", "<Plug>(copilot-accept-line)", { silent = true, desc = "Accept next line of suggestion" })
+vim.keymap.set("i", "<C-Right>", "<Plug>(copilot-next)", { silent = true, desc = "Copilot next suggestion" })
+vim.keymap.set("i", "<C-Left>", "<Plug>(copilot-previous)", { silent = true, desc = "Copilot previous suggestion" })
