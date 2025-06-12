@@ -17,7 +17,7 @@ local on_attach = function(_, bufnr)
   map(bufnr, "n", "<leader>xx", "<cmd>TroubleToggle<CR>", opts)
 end
 
-local servers = { "pyright", "tsserver", "html", "cssls", "jsonls" }
+local servers = { "pyright", "ts_ls", "html", "cssls", "jsonls" }
 
 for _, server in ipairs(servers) do
   lspconfig[server].setup({
