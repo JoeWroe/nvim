@@ -139,9 +139,11 @@ require("lazy").setup({
 
   -- Trouble (Diagnostics list)
   {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+      "folke/trouble.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      config = function()
+          require("trouble").setup({})
+      end
   },
 
   -- Overseer (Task runner)

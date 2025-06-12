@@ -63,6 +63,7 @@ overseer.register_template({
         { "on_exit_set_status" },
       },
     }
+  end,
 })
 
 -- Keybindings
