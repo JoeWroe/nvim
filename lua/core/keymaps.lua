@@ -44,9 +44,9 @@ vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", opts)
 
 -- Trouble diagnostics (if using)
-vim.keymap.set("n", "<leader>tt", "<cmd>Trouble<cr>", opts)
-vim.keymap.set("n", "<leader>twd", "<cmd>Trouble workspace_diagnostics<cr>", opts)
-vim.keymap.set("n", "<leader>tdd", "<cmd>Trouble document_diagnostics<cr>", opts)
+vim.keymap.set("n", "<leader>dt", "<cmd>Trouble<cr>", opts)
+vim.keymap.set("n", "<leader>dwd", "<cmd>Trouble workspace_diagnostics<cr>", opts)
+vim.keymap.set("n", "<leader>ddd", "<cmd>Trouble document_diagnostics<cr>", opts)
 
 -- Git signs
 vim.keymap.set("n", "]c", function()
