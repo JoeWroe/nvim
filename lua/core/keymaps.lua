@@ -16,6 +16,9 @@ map("n", "<<", ":update | bp<CR>", opts)
 map("n", ">>", ":update | bn<CR>", opts)
 map("n", "<leader>ls", ":update | ls<CR>", opts)
 
+-- LSP and refactoring
+map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+
 -- Smooth scrolling with vim-smoothie
 map("n", "<leader>j", "<Plug>(SmoothieDownwards)", {})
 map("n", "<leader>k", "<Plug>(SmoothieUpwards)", {})
