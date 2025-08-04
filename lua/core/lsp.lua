@@ -79,8 +79,10 @@ require("mason-null-ls").setup({
     "prettier",
     "stylua",
     "eslint_d",
+    "eslint_lsp",
     "black",
     "npm-groovy-lint",
+    "typescript-language-server",
     -- Add more as needed
   },
   automatic_installation = true,
