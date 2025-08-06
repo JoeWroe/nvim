@@ -6,25 +6,19 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 local on_attach = function(_, bufnr)
-  local opts = { noremap = true, silent = true }
   local map = vim.api.nvim_buf_set_keymap
-  map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  map(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  map(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  map(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
-  map(bufnr, "n", "<leader>xx", "<cmd>TroubleToggle<CR>", opts)
+  local opts = { noremap = true, silent = true }
+
+  map(bufnr, "n", "<leader>gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>", opts)
+  map(bufnr, "n", "<leader>gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
+  map(bufnr, "n", "<leader>gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>", opts)
+
+  map(bufnr, "n", "<leader>rk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  map(bufnr, "n", "<leader>rrn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+  map(bufnr, "n", "<leader>rfc", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
+  map(bufnr, "n", "<leader>rxx", "<cmd>TroubleToggle<CR>", opts)
 end
 
-local servers = { "pyright", "groovyls", "ts_ls", "html", "cssls", "jsonls" }
-
-for _, server in ipairs(servers) do
-  lspconfig[server].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-end
 
 -- nvim-cmp setup
 local cmp = require("cmp")
@@ -45,6 +39,7 @@ cmp.setup({
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
+    { name = "buffer" },
   },
 })
 
@@ -60,19 +55,23 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",       -- Lua
     "pyright",      -- Python
-    "groovyls",    -- Groovy
-    -- Add more as needed
+    "groovyls",     -- Groovy
+    "ts_ls",        -- TypeScript
+    "html",         -- HTML
+    "cssls",        -- CSS
+    "jsonls",       -- JSON
   },
   automatic_installation = true,
-})
-
-require("mason-lspconfig").setup({
   handlers = {
     function(server_name)
-      require("lspconfig")[server_name].setup({})
+      require("lspconfig")[server_name].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
     end,
   },
 })
+
 
 require("mason-null-ls").setup({
   ensure_installed = {
