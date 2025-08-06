@@ -386,6 +386,35 @@ require("lazy").setup({
     end,
   },
 
+  -- Claude Code Integration
+  {
+    "coder/claudecode.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("claudecode").setup({
+        -- Optional configuration
+        server = {
+          host = "127.0.0.1",
+          port = 8080,
+        },
+      })
+    end,
+  },
+
+  -- Claude Chat Integration
+  {
+    "pasky/claude.vim",
+    cmd = { "Claude", "ClaudeChat", "ClaudeImplement" },
+    keys = {
+      { "<leader>cc", ":Claude<CR>", desc = "Claude Chat" },
+      { "<leader>ci", ":ClaudeImplement<CR>", desc = "Claude Implement" },
+    },
+    config = function()
+      -- Claude.vim configuration
+      vim.g.claude_api_key = os.getenv("ANTHROPIC_API_KEY")
+    end,
+  },
+
   -- Modern folding
   {
     "kevinhwang91/nvim-ufo",
