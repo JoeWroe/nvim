@@ -4,6 +4,10 @@ local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
 
 local on_attach = function(client, bufnr)
   local map = vim.api.nvim_buf_set_keymap
