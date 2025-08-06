@@ -19,11 +19,8 @@ map("n", "<leader>ls", ":update | ls<CR>", opts)
 -- LSP and refactoring
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
--- Smooth scrolling with vim-smoothie
-map("n", "<leader>j", "<Plug>(SmoothieDownwards)", {})
-map("n", "<leader>k", "<Plug>(SmoothieUpwards)", {})
-map("n", "<leader>J", "<Plug>(SmoothieForwards)", {})
-map("n", "<leader>K", "<Plug>(SmoothieBackwards)", {})
+-- Smooth scrolling with neoscroll (using default mappings)
+-- neoscroll automatically handles <C-u>, <C-d>, <C-b>, <C-f>, <C-y>, <C-e>, zt, zz, zb
 
 -- Insert mode shortcuts
 map("i", "II", "<Esc>I", { noremap = true })
@@ -38,10 +35,10 @@ vim.keymap.set("n", "<leader>b", ":NvimTreeFindFile<CR>", opts)
 local opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
-vim.keymap.set("n", "<leader>gf", "<cmd>Telescope git_files<cr>", opts)
-vim.keymap.set("n", "<leader>fh", "<cmd>Telescope oldfiles<cr>", opts)
+vim.keymap.set("n", "<leader>fgf", "<cmd>Telescope git_files<cr>", opts)
+vim.keymap.set("n", "<leader>fof", "<cmd>Telescope oldfiles<cr>", opts)
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)
-vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", opts)
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true, desc = "Live grep" })
 
 -- Trouble diagnostics (if using)
 vim.keymap.set("n", "<leader>dt", "<cmd>Trouble<cr>", opts)
