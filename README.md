@@ -15,25 +15,33 @@ This Neovim configuration is structured in modular Lua files for better readabil
         ├── treesitter.lua-- Treesitter config for highlighting and textobjects
         ├── noice.lua     -- UI enhancements (noice.nvim)
         ├── nvimtree.lua  -- File explorer configuration
-        ├── fzf.lua       -- FZF integration and shortcuts
-        └── airline.lua   -- Statusline configuration using vim-airline
+        ├── telescope.lua -- Telescope fuzzy finder configuration
+        └── lualine.lua   -- Statusline configuration using lualine
 ```
 
 ## 🔌 Plugins
 Managed via `lazy.nvim`:
-- LSP: `nvim-lspconfig`, `nvim-cmp`, `cmp-nvim-lsp`, `LuaSnip`
-- UI: `noice.nvim`, `nvim-notify`, `vim-airline`
-- Files: `nvim-tree.lua`, `fzf.vim`
-- Editing: `vim-commentary`, `vim-surround`, `vim-smoothie`
-- Syntax: `nvim-treesitter`, `treesitter-textobjects`
-- Diagnostics: `trouble.nvim`
+- LSP: `nvim-lspconfig`, `nvim-cmp`, `cmp-nvim-lsp`, `LuaSnip`, `mason.nvim`
+- UI: `noice.nvim`, `nvim-notify`, `lualine.nvim`, `which-key.nvim`
+- Files: `nvim-tree.lua`, `telescope.nvim`
+- Editing: `Comment.nvim`, `nvim-surround`, `vim-smoothie`, `nvim-autopairs`
+- Syntax: `nvim-treesitter`
+- Diagnostics: `trouble.nvim`, `none-ls.nvim`
+- Git: `gitsigns.nvim`
+- AI: `copilot.vim`, `ChatGPT.nvim`
+- Testing: `neotest`
+- Tasks: `overseer.nvim`
 
 ## 🗝 Key Features
-- Semantic LSP navigation, rename, hover
-- Fast fuzzy finders via FZF
-- Syntax-aware code navigation and selection
+- Semantic LSP navigation, rename, hover with Mason auto-installation
+- Fast fuzzy finding via Telescope
+- Syntax-aware code navigation and selection with Treesitter
 - Pretty UI popups for messages and command input
 - Smooth scrolling and visual polish
+- Git integration with hunks, blame, and diff views
+- AI assistance with GitHub Copilot and ChatGPT
+- Comprehensive testing support with Neotest
+- Task running with Overseer
 
 ## 🚀 Getting Started
 1. Clone the repo or copy the structure to your config folder (`~/.config/nvim/`)
@@ -42,6 +50,6 @@ Managed via `lazy.nvim`:
 
 ---
 
-Feel free to extend this setup or swap components like airline → lualine, fzf → telescope, etc.
+Feel free to extend this setup or swap components to match your preferences.
 
 Happy hacking! 😄

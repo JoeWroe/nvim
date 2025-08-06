@@ -28,12 +28,24 @@ require("lazy").setup({
     event = { "BufReadPre", "BufNewFile" },
   },
 
+  -- devicons
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,  -- Load on demand
+    config = function()
+      require("nvim-web-devicons").setup({
+        default = true,
+      })
+    end,
+  },
+
   -- Autocompletion
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
@@ -82,7 +94,11 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     lazy = false,  -- Eager-load to ensure keymaps in keymaps.lua work
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { 
+      "nvim-lua/plenary.nvim",
+      "BurntSushi/ripgrep",
+      "nvim-telescope/telescope-fzf-native.nvim", build = "make",
+    },
   },
 
   -- File explorer
@@ -166,6 +182,53 @@ require("lazy").setup({
     end,
   },
 
+  -- Alpha (startup screen)
+  {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      local alpha = require("alpha")
+      local dashboard = require("alpha.themes.dashboard")
+
+      -- Set header
+      dashboard.section.header.val = {
+        "                                                     ",
+        "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+        "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+        "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+        "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+        "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+        "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+        "                                                     ",
+      }
+
+      -- Set menu
+      dashboard.section.buttons.val = {
+        dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
+        dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+        dashboard.button("p", "  Find project", ":lua require('telescope').extensions.projects.projects()<CR>"),
+        dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
+        dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
+        dashboard.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
+        dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+      }
+
+      local function footer()
+        return "Don't Stop Until You are Proud..."
+      end
+
+      dashboard.section.footer.val = footer()
+
+      dashboard.section.footer.opts.hl = "Type"
+      dashboard.section.header.opts.hl = "Include"
+      dashboard.section.buttons.opts.hl = "Keyword"
+
+      dashboard.opts.opts.noautocmd = true
+      alpha.setup(dashboard.opts)
+    end,
+  },
+
   -- Git signs
   {
     "lewis6991/gitsigns.nvim",
@@ -202,5 +265,49 @@ require("lazy").setup({
         },
       })
     end,
+  },
+
+  -- Neotest (Testing framework)
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "thenbe/neotest-playwright",
+      dependencies = "nvim-telescope/telescope.nvim",
+    },
+    event = "VeryLazy",
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-playwright").adapter({
+            options = {
+              persist_project_selection = true,
+              enable_dynamic_test_discovery = true,
+            },
+            icons = {
+              passed = "✓",
+              failed = "✗",
+              running = "▶",
+              skipped = "⏭️",
+            },
+            status = {
+              virtual_text = true,
+              signs = true,
+            },
+            output = {
+              open_on_run = true,
+            },
+            quickfix = {
+              enabled = true,
+              open_on_run = true,
+            },
+          }),
+        },
+      })
+    end,
+    keys = {
+      { "<leader>tr", function() require("neotest").run.run() end, desc = "Run nearest test" },
+    },
   },
 })
