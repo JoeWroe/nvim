@@ -5,9 +5,14 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local map = vim.api.nvim_buf_set_keymap
   local opts = { noremap = true, silent = true }
+
+  -- Attach nvim-navic if server supports document symbols
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
 
   map(bufnr, "n", "<leader>gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>", opts)
   map(bufnr, "n", "<leader>gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)

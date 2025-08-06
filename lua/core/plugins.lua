@@ -280,6 +280,74 @@ require("lazy").setup({
     end,
   },
 
+  -- Breadcrumb navigation
+  {
+    "utilyre/barbecue.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("barbecue").setup({
+        create_autocmd = false, -- prevent barbecue from updating itself automatically
+        attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
+        show_dirname = false,
+        show_basename = true,
+        show_modified = true,
+        modified = function(bufnr)
+          return vim.api.nvim_buf_get_option(bufnr, "modified")
+        end,
+        exclude_filetypes = { "netrw", "toggleterm" },
+        symbols = {
+          modified = "●",
+          ellipsis = "…",
+          separator = "",
+        },
+        kinds = {
+          File = "",
+          Module = "",
+          Namespace = "",
+          Package = "",
+          Class = "",
+          Method = "",
+          Property = "",
+          Field = "",
+          Constructor = "",
+          Enum = "練",
+          Interface = "練",
+          Function = "",
+          Variable = "",
+          Constant = "",
+          String = "",
+          Number = "",
+          Boolean = "◩",
+          Array = "",
+          Object = "",
+          Key = "",
+          Null = "ﳠ",
+          EnumMember = "",
+          Struct = "",
+          Event = "",
+          Operator = "",
+          TypeParameter = "",
+        },
+      })
+
+      vim.api.nvim_create_autocmd({
+        "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+        "BufWinEnter",
+        "CursorHold",
+        "InsertLeave",
+      }, {
+        group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+        callback = function()
+          require("barbecue.ui").update()
+        end,
+      })
+    end,
+  },
+
   -- Git signs
   {
     "lewis6991/gitsigns.nvim",
