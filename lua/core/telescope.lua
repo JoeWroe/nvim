@@ -23,6 +23,18 @@ telescope.setup({
       override_file_sorter = true,
       case_mode = "smart_case",
     },
+    ['lsp_definitions'] = {
+      show_line = true,
+      show_filename = true,
+    },
+    ['lsp_references'] = {
+      show_line = true,
+      show_filename = true,
+    },
+    ['lsp_implementations'] = {
+      show_line = true,
+      show_filename = true,
+    },
   },
 })
 
