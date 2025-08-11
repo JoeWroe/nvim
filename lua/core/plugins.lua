@@ -404,14 +404,43 @@ require("lazy").setup({
   -- Claude Chat Integration
   {
     "pasky/claude.vim",
-    cmd = { "Claude", "ClaudeChat", "ClaudeImplement" },
+    lazy = false,  -- Load on startup to ensure proper initialization
     keys = {
-      { "<leader>cc", ":Claude<CR>", desc = "Claude Chat" },
+      { "<leader>cc", ":ClaudeChat<CR>", desc = "Claude Chat" },
       { "<leader>ci", ":ClaudeImplement<CR>", desc = "Claude Implement" },
     },
+    init = function()
+      -- Try to read API key from a secure file
+      local api_key_file = vim.fn.expand("~/.config/nvim/claude_api_key")
+      local api_key = nil
+      
+      -- First try reading from file
+      local file = io.open(api_key_file, "r")
+      if file then
+        api_key = file:read("*line")
+        file:close()
+        if api_key and api_key ~= "" then
+          vim.g.claude_api_key = api_key
+          print("Claude API key loaded from file")
+        end
+      else
+        -- Fallback to environment variable with shell expansion
+        local handle = io.popen("echo $ANTHROPIC_API_KEY")
+        if handle then
+          api_key = handle:read("*line")
+          handle:close()
+          if api_key and api_key ~= "" then
+            vim.g.claude_api_key = api_key
+            print("Claude API key loaded from environment")
+          else
+            print("WARNING: Claude API key not found!")
+          end
+        end
+      end
+    end,
     config = function()
-      -- Claude.vim configuration
-      vim.g.claude_api_key = os.getenv("ANTHROPIC_API_KEY")
+      -- Setup floating window for Claude chat
+      require("core.claude").setup()
     end,
   },
 
