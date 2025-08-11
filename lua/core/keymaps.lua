@@ -18,6 +18,7 @@ map("n", "<leader>ls", ":update | ls<CR>", opts)
 
 -- LSP and refactoring
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
 
 -- Smooth scrolling with neoscroll (using default mappings)
 -- neoscroll automatically handles <C-u>, <C-d>, <C-b>, <C-f>, <C-y>, <C-e>, zt, zz, zb
