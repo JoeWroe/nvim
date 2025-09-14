@@ -467,6 +467,31 @@ require("lazy").setup({
     end,
   },
 
+  -- Refactoring
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("refactoring").setup({})
+    end,
+  },
+
+  -- Global find and replace
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    cmd = "Spectre",
+    config = function()
+      require("core.spectre")
+    end,
+  },
+
   -- Neotest (Testing framework)
   {
     "nvim-neotest/neotest",

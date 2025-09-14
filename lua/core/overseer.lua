@@ -56,14 +56,59 @@ overseer.register_template({
     elseif filetype == "javascript" or filetype == "typescript" then
       -- Check for Playwright tests first (.spec.ts files with playwright import)
       if filename:match("%.spec%.ts$") then
-        -- Read file content to check for playwright import
+        -- Function to check for playwright in a file
+        local function check_playwright_in_file(filepath)
+          local file_handle = io.open(filepath, "r")
+          if not file_handle then return false end
+          
+          local line_count = 0
+          for line in file_handle:lines() do
+            line_count = line_count + 1
+            if line_count > 50 then break end -- Only check first 50 lines
+            
+            if line:match("playwright") then
+              file_handle:close()
+              return true
+            end
+          end
+          file_handle:close()
+          return false
+        end
+        
+        -- Read current buffer content to check for playwright import
         local lines = vim.api.nvim_buf_get_lines(0, 0, 50, false) -- Check first 50 lines
         local has_playwright = false
+        local first_import_file = nil
+        
         for _, line in ipairs(lines) do
-          if line:match("from.*['\"]@playwright") or line:match("import.*playwright") or line:match("require.*playwright") then
+          -- Check for playwright in current file
+          if line:match("playwright") then
             has_playwright = true
             break
           end
+          
+          -- Capture first import file if not found yet
+          if not first_import_file then
+            local import_match = line:match("from%s+['\"]([^'\"]+)['\"]") or line:match("import%s+[^'\"]*from%s+['\"]([^'\"]+)['\"]")
+            if import_match and import_match:match("^%.") then -- relative import
+              local current_dir = vim.fn.expand("%:p:h")
+              local import_path = current_dir .. "/" .. import_match:gsub("^%./", "")
+              
+              -- Try different extensions
+              for _, ext in ipairs({".ts", ".js", ".tsx", ".jsx"}) do
+                local full_path = import_path .. ext
+                if vim.fn.filereadable(full_path) == 1 then
+                  first_import_file = full_path
+                  break
+                end
+              end
+            end
+          end
+        end
+        
+        -- If playwright not found in current file, check first imported file
+        if not has_playwright and first_import_file then
+          has_playwright = check_playwright_in_file(first_import_file)
         end
         
         if has_playwright then

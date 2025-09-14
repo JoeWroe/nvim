@@ -20,6 +20,15 @@ map("n", "<leader>ls", ":update | ls<CR>", opts)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
 
+-- Refactoring.nvim keymaps
+vim.keymap.set("x", "<leader>re", ":Refactor extract ", { desc = "Extract function" })
+vim.keymap.set("x", "<leader>rf", ":Refactor extract_to_file ", { desc = "Extract to file" })
+vim.keymap.set("x", "<leader>rv", ":Refactor extract_var ", { desc = "Extract variable" })
+vim.keymap.set({ "n", "x" }, "<leader>ri", ":Refactor inline_var", { desc = "Inline variable" })
+vim.keymap.set("n", "<leader>rI", ":Refactor inline_func", { desc = "Inline function" })
+vim.keymap.set("n", "<leader>rb", ":Refactor extract_block", { desc = "Extract block" })
+vim.keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file", { desc = "Extract block to file" })
+
 -- Smooth scrolling with neoscroll (using default mappings)
 -- neoscroll automatically handles <C-u>, <C-d>, <C-b>, <C-f>, <C-y>, <C-e>, zt, zz, zb
 
