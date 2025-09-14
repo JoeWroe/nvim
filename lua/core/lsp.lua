@@ -69,6 +69,7 @@ require("mason-lspconfig").setup({
     "html",         -- HTML
     "cssls",        -- CSS
     "jsonls",       -- JSON
+    "terraformls",  -- Terraform
   },
   automatic_installation = true,
   handlers = {
@@ -76,6 +77,14 @@ require("mason-lspconfig").setup({
       require("lspconfig")[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
+      })
+    end,
+    ["terraformls"] = function()
+      require("lspconfig").terraformls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { "terraform-ls", "serve" },
+        filetypes = { "terraform", "tf", "terraform-vars" },
       })
     end,
   },
@@ -91,6 +100,8 @@ require("mason-null-ls").setup({
     "black",
     "npm-groovy-lint",
     "typescript-language-server",
+    "terraform_fmt",
+    "terraform_validate",
     -- Add more as needed
   },
   automatic_installation = true,
