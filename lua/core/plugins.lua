@@ -366,28 +366,6 @@ require("lazy").setup({
     lazy = false  -- Load on startup
   },
 
-  -- ChatGPT
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require("chatgpt").setup({
-        keymaps = {
-          submit = "<C-s>",
-          toggle = "<C-t>",
-        },
-        openai_params = {
-          model = "gpt-4.1-nano",
-        },
-      })
-    end,
-  },
 
   -- Claude Code Integration
   {

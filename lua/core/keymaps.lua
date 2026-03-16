@@ -78,8 +78,6 @@ vim.keymap.set("i", "<C-K>", "<Plug>(copilot-accept-line)", { silent = true, des
 vim.keymap.set("i", "<C-Right>", "<Plug>(copilot-next)", { silent = true, desc = "Copilot next suggestion" })
 vim.keymap.set("i", "<C-Left>", "<Plug>(copilot-previous)", { silent = true, desc = "Copilot previous suggestion" })
 
--- ChatGPT
-vim.keymap.set("n", "<leader>cg", ":ChatGPT<CR>", { desc = "ChatGPT" })
 
 -- Spectre (global find and replace)
 vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
