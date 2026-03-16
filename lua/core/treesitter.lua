@@ -9,7 +9,6 @@ require("nvim-treesitter.configs").setup({
     "css",
     "javascript",
     "typescript",
-    "groovy"
   },
   highlight = {
     enable = true,

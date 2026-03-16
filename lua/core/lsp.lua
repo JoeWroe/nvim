@@ -64,7 +64,6 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",       -- Lua
     "pyright",      -- Python
-    "groovyls",     -- Groovy
     "ts_ls",        -- TypeScript
     "html",         -- HTML
     "cssls",        -- CSS
@@ -98,7 +97,6 @@ require("mason-null-ls").setup({
     "eslint_d",
     "eslint_lsp",
     "black",
-    "npm-groovy-lint",
     "typescript-language-server",
     "terraform_fmt",
     "terraform_validate",

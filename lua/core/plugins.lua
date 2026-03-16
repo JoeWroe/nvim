@@ -88,6 +88,9 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     event = "BufReadPre",
     build = ":TSUpdate",
+    config = function()
+      require("core.treesitter")
+    end,
   },
 
   -- Telescope

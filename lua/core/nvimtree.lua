@@ -4,13 +4,11 @@ require("nvim-tree").setup({
   disable_netrw = true,
   filters = {
     dotfiles = false,
-    git_clean = false,
   },
-
-  git_clean = {
+  git = {
     enable = true,
     ignore = false,
-  }
+  },
 })
 
 -- Key mappings (already included in keymaps.lua, but included here for clarity)
