@@ -8,10 +8,10 @@ wk.add({
   { "<leader>q",   desc = "Quit" },
   { "<leader>wq",  desc = "Write & quit" },
   { "<leader>u",   desc = "Toggle cursorline" },
-  { "<leader>j",   desc = "Smooth scroll down" },
-  { "<leader>k",   desc = "Smooth scroll up" },
-  { "<leader>J",   desc = "Smooth scroll forward" },
-  { "<leader>K",   desc = "Smooth scroll backward" },
+  { "<leader>j",   desc = "Scroll down half page" },
+  { "<leader>k",   desc = "Scroll up half page" },
+  { "<leader>J",   desc = "Scroll down full page" },
+  { "<leader>K",   desc = "Scroll up full page" },
   { "<leader>ls",  desc = "List buffers" },
 
   -- Find

@@ -129,6 +129,13 @@ require("lazy").setup({
         post_hook = nil,
         performance_mode = false,
       })
+
+      local neoscroll = require("neoscroll")
+      local modes = { "n", "v", "x" }
+      vim.keymap.set(modes, "<leader>j", function() neoscroll.ctrl_d({ duration = 250 }) end, { desc = "Scroll down half page" })
+      vim.keymap.set(modes, "<leader>k", function() neoscroll.ctrl_u({ duration = 250 }) end, { desc = "Scroll up half page" })
+      vim.keymap.set(modes, "<leader>J", function() neoscroll.ctrl_f({ duration = 450 }) end, { desc = "Scroll down full page" })
+      vim.keymap.set(modes, "<leader>K", function() neoscroll.ctrl_b({ duration = 450 }) end, { desc = "Scroll up full page" })
     end,
   },
 
